@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lab 8</title>
+    <script>
+        // Function to get user input and perform the conversion
+        function get_input() {
+            // Retrieve the gram value and the selected conversion option
+            var grams = parseFloat(document.convertfrm.gramtxt.value);
+            var unit = document.convertfrm.unittxt.value;
+
+
+            // Validate input
+            if (isNaN(grams) || grams < 0) {
+                document.getElementById("result").innerHTML = "Please enter a valid number of grams.";
+                return;
+            }
+
+
+            // Conditional to check the selected unit
+            if (unit == "A") {
+                convert_kilogram(grams); // Convert to kilograms
+            } else if (unit == "B") {
+                convert_pound(grams); // Convert to pounds
+            } else {
+                document.getElementById("result").innerHTML = "Please select a conversion option.";
+            }
+        }
+
+        // Function to convert grams to kilograms
+        function convert_kilogram(grams) {
+            var kilograms = grams * 0.001; // Conversion formula
+            document.getElementById("result").innerHTML = grams + " grams = " + kilograms + " kilograms.";
+        }
+
+
+        // Function to convert grams to pounds
+        function convert_pound(grams) {
+            var pounds = grams * 0.00220462; // Conversion formula
+            document.getElementById("result").innerHTML = grams + " grams = " + pounds + " pounds.";
+        }
+    </script>
+</head>
+<body>
+    <form name="convertfrm">
+        <p>Enter a value in grams: <input type="text" name="gramtxt" /></p>
+        <p>Convert to:
+            <select name="unittxt">
+                <option value="A">Kilogram</option>
+                <option value="B">Pound</option>
+            </select>
+        </p>
+        <p><input type="button" name="convertbtn" value="Convert Now" onclick="get_input();" /></p>
+    </form>
+    <p id="result"></p>
+</body>
+</html>
+
+//p

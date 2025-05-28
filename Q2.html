@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head><title>Lab 8</title>
+
+<script type="text/javascript">
+function order_data() {
+    // 1. Get required information from the form
+    const cust_name = document.orderfrm.nametxt.value; 
+    // Gets the customer's name from the text box.
+
+    const mug_colour = document.orderfrm.mug_colour.value; 
+    // Gets the selected mug color from the radio buttons.
+
+    const quantity = parseInt(document.orderfrm.qtytxt.value); 
+    // Gets the quantity of mugs ordered and converts it to a number.
+
+    const delivery = document.orderfrm.mug_delivery.checked; 
+    // Checks if the delivery checkbox is checked (true or false).
+
+    // 2. Get mug price by calling get_price function
+    const mug_price = get_price(mug_colour);  
+    // Calls the get_price function to find the price of the selected color mug.
+
+    // 3. Calculate total bill
+    let delivery_charge = 0; 
+    // Initializes delivery charge amount to zero.
+
+    if (delivery) {
+        delivery_charge = 7.00; // fixed delivery charge 
+        // Sets delivery charge to RM7.00 if delivery is needed.
+    }
+    
+    const total = (mug_price * quantity) + delivery_charge; 
+    // Calculates total cost by multiplying mug price by quantity and adding delivery charge (if any).
+
+    // 4. Call print_bill function with the necessary variables
+    print_bill(cust_name, mug_price, quantity, delivery, delivery_charge, total); 
+    // Sends all the needed information to print the bill.
+}
+
+function get_price(mug_color) {
+    let price = 0; 
+
+    switch(mug_color) {
+        case '1': // Royal Blue
+            price = 3.50; 
+            // Sets price for Royal Blue mug.
+            break;
+        case '2': // Red and Orange
+            price = 5.90; 
+            // Sets price for Red and Orange mug.
+            break;
+        case '3': // Gold
+            price = 7.50; 
+            // Sets price for Gold mug.
+            break;
+        default:
+            console.log("Invalid colour selected"); 
+            // Warns if an invalid color is chosen.
+    }
+    return price; 
+    // Returns the mug price based on the selected color.
+}
+
+function print_bill(cust_name, mug_price, quantity, mug_delivery, mug_deli_rate, total) {
+    // 6. Display the bill details
+    document.write("<h3>Bill Details</h3>"); 
+    // Writes a header for the bill on the webpage.
+    
+    document.write("Customer Name : " + cust_name + "<br>"); 
+    // Displays the customer’s name.
+    
+    document.write("Mug Price : RM" + mug_price.toFixed(2) + "<br>"); 
+    // Displays the price of the mug formatted to 2 decimal places.
+
+    document.write("Quantity : " + quantity + "<br>"); 
+    // Displays the number of mugs ordered.
+
+    document.write("Delivery : RM" + mug_deli_rate.toFixed(2) + (mug_delivery ? "(Yes)" : "(No)") + "<br>"); 
+    // Displays delivery charge and whether delivery is required.
+
+    document.write("Total : RM" + total.toFixed(2) + "<br>"); 
+    // Displays the total amount to be paid, formatted to 2 decimal places.
+}
+
+</script>
+
+</head>
+
+<body>
+
+<h3>Custom Mug</h3>
+<p>Make a custom order today!</p>
+
+<form name="orderfrm">
+
+	<p>Name : <input type="text" name="nametxt" >
+
+	<p>Colour
+	<input type="radio" name="mug_colour" value="1">Royal Blue (RM 3.50)
+	<input type="radio" name="mug_colour" value="2">Red and Orange (RM 5.90)
+	<input type="radio" name="mug_colour" value="3">Gold (RM 7.50)
+
+	<p>Quantity : <input type="text" name="qtytxt" >	
+	
+	<p>Delivery : <input type="checkbox" name="mug_delivery" value="Yes">Check if delivery is required
+
+	<p><input type="button" name="sendbtn" value="Send Order" onclick="order_data();" />
+
+</form>
+
+
+</body>
+
+</html>
